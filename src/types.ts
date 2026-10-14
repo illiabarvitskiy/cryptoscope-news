@@ -1,0 +1,1 @@
+export type Article = { id: number; title: string; category: string; date: string; read: string; excerpt: string; image: string; author: string; featured?: boolean; body: string[]; sourceNote?: string };
