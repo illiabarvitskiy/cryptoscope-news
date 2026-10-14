@@ -50,9 +50,21 @@ function App(){
    let ogDescription = document.querySelector('meta[property="og:description"]');
    if (!ogDescription) { ogDescription = document.createElement('meta'); ogDescription.setAttribute('property', 'og:description'); document.head.appendChild(ogDescription); }
    ogDescription.setAttribute('content', description);
+   let ogUrl = document.querySelector('meta[property="og:url"]');
+   if (!ogUrl) { ogUrl = document.createElement('meta'); ogUrl.setAttribute('property', 'og:url'); document.head.appendChild(ogUrl); }
+   ogUrl.setAttribute('content', 'https://cryptoscope-news.pages.dev' + window.location.pathname);
+   let ogImage = document.querySelector('meta[property="og:image"]');
+   if (!ogImage) { ogImage = document.createElement('meta'); ogImage.setAttribute('property', 'og:image'); document.head.appendChild(ogImage); }
+   ogImage.setAttribute('content', active && page === 'Article' ? active.image : 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1200&q=85');
+   let twitterTitle = document.querySelector('meta[name="twitter:title"]');
+   if (!twitterTitle) { twitterTitle = document.createElement('meta'); twitterTitle.setAttribute('name', 'twitter:title'); document.head.appendChild(twitterTitle); }
+   twitterTitle.setAttribute('content', title);
+   let twitterDescription = document.querySelector('meta[name="twitter:description"]');
+   if (!twitterDescription) { twitterDescription = document.createElement('meta'); twitterDescription.setAttribute('name', 'twitter:description'); document.head.appendChild(twitterDescription); }
+   twitterDescription.setAttribute('content', description);
    let canonical = document.querySelector('link[rel="canonical"]');
    if (!canonical) { canonical = document.createElement('link'); canonical.setAttribute('rel', 'canonical'); document.head.appendChild(canonical); }
-   canonical.setAttribute('href', window.location.origin + window.location.pathname);
+   canonical.setAttribute('href', 'https://cryptoscope-news.pages.dev' + window.location.pathname);
    const oldSchema = document.querySelector('script[data-cryptoscope-article]');
    if (oldSchema) oldSchema.remove();
    if (active && page === 'Article') {
@@ -69,7 +81,7 @@ function App(){
        dateModified: new Date(active.date).toISOString(),
        author: { '@type': 'Organization', name: active.author },
        publisher: { '@type': 'Organization', name: 'CryptoScope News' },
-       mainEntityOfPage: window.location.origin + window.location.pathname
+       mainEntityOfPage: 'https://cryptoscope-news.pages.dev' + window.location.pathname
      });
      document.head.appendChild(schema);
    }
