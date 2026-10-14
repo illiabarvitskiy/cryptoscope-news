@@ -22,5 +22,7 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Check article content and sitemap
+        run: npm run check:content
       - name: Build site
         run: npm run build
