@@ -5,6 +5,7 @@ import './style.css';
 import type { Article } from './types';
 import { additionalArticles } from './additionalArticles';
 import { articleEnhancements } from './articleEnhancements';
+import { articleDeepDives } from './articleDeepDives';
 
 const starterArticles: Article[] = [
  {id:1,title:'Bitcoin ETFs explained: what investors should know',category:'Bitcoin',date:'Oct 13, 2026',read:'6 min read',excerpt:'A straightforward guide to spot Bitcoin ETFs, how they work, and the risks that remain even when buying through a traditional brokerage.',image:'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=85',author:'CryptoScope Research',featured:true,body:['A spot Bitcoin exchange-traded fund (ETF) is an investment product designed to track the market price of Bitcoin. Instead of managing a crypto wallet and private keys, investors can buy shares through a brokerage account, subject to the product and local rules.','The structure can make access simpler, but it does not remove Bitcoin’s price volatility. A fund’s market price can also differ slightly from its net asset value, and management fees can affect long-term returns. Investors should read the fund prospectus and understand custody arrangements before investing.','An ETF is not the same as holding Bitcoin directly. Shareholders generally cannot use ETF shares to make blockchain transactions, and they rely on the fund’s service providers for custody and operations.','This explainer is educational, not investment advice. Product availability, tax treatment and investor protections vary by jurisdiction.'],sourceNote:'Primary source: SEC Investor.gov, Exchange-Traded Products Providing Exposure to Bitcoin and Ether — Investor Bulletin: https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/ETPBulletinSeptember2024'},
@@ -16,7 +17,7 @@ const starterArticles: Article[] = [
 ]; 
 const allArticles: Article[] = [...starterArticles, ...additionalArticles].map(article => {
  const enhancement = articleEnhancements[slugify(article.title)];
- return enhancement ? { ...article, image: enhancement.image, body: [...article.body, ...enhancement.paragraphs] } : article;
+ return enhancement ? { ...article, image: enhancement.image, body: [...article.body, ...enhancement.paragraphs, ...(articleDeepDives[slugify(article.title)] || [])] } : article;
 });
 const categories = ['All','Bitcoin','Ethereum','Altcoins','DeFi','Regulation','Blockchain','Security'];
 const iconFor = (name:string) => name==='Bitcoin'?<Bitcoin/>:name==='Ethereum'?<Layers3/>:name==='Regulation'?<Landmark/>:name==='Security'?<ShieldCheck/>:name==='DeFi'?<TrendingUp/>:<Globe2/>;
