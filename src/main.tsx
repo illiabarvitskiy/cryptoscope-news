@@ -16,11 +16,11 @@ const starterArticles: Article[] = [
 const allArticles: Article[] = [...starterArticles, ...additionalArticles];
 const categories = ['All','Bitcoin','Ethereum','Altcoins','DeFi','Regulation','Blockchain','Security'];
 const iconFor = (name:string) => name==='Bitcoin'?<Bitcoin/>:name==='Ethereum'?<Layers3/>:name==='Regulation'?<Landmark/>:name==='Security'?<ShieldCheck/>:name==='DeFi'?<TrendingUp/>:<Globe2/>;
-const slugify = (value: string) => value.toLowerCase().normalize('NFKD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const slugify = (value: string) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const staticRoutes: Record<string, string> = { '/': 'Home', '/markets/': 'Markets', '/guides/': 'Guides', '/about/': 'About', '/contact/': 'Contact', '/privacy-policy/': 'Privacy Policy', '/terms/': 'Terms of Use' };
 const pathForPage = (page: string) => ({ Home: '/', Markets: '/markets/', Guides: '/guides/', About: '/about/', Contact: '/contact/', 'Privacy Policy': '/privacy-policy/', 'Terms of Use': '/terms/' } as Record<string, string>)[page] || '/';
 function App(){
- const articleFromPath = () => { const match = window.location.pathname.match(/^\\/articles\\/([^/]+)\\/?$/); return match ? allArticles.find(a => slugify(a.title) === match[1]) || null : null; };
+ const articleFromPath = () => { const match = window.location.pathname.match(/^\/articles\/([^/]+)\/?$/); return match ? allArticles.find(a => slugify(a.title) === match[1]) || null : null; };
  const [category,setCategory]=useState('All'); const [query,setQuery]=useState(''); const [active,setActive]=useState<Article|null>(()=>articleFromPath()); const [mobileOpen,setMobileOpen]=useState(false); const [page,setPage]=useState(()=>articleFromPath() ? 'Article' : staticRoutes[window.location.pathname] || 'Home'); const [email,setEmail]=useState(''); const [subscribed,setSubscribed]=useState(false);
  const filtered=useMemo(()=>allArticles.filter(a=>(category==='All'||a.category===category)&&`${a.title} ${a.excerpt} ${a.category}`.toLowerCase().includes(query.toLowerCase())),[category,query]);
  const goTop=()=>window.scrollTo({top:0,behavior:'smooth'});
